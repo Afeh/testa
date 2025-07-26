@@ -30,8 +30,8 @@ def validate_mx_record(domain: str):
 
 class UserUpdate(BaseModel):
     
-    first_name : Optional[str] = None
-    last_name : Optional[str] = None
+    avatar_url: Optional[str] = None
+    phone_number: Optional[str] = None
 
 class UserData(BaseModel):
     """

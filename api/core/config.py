@@ -17,7 +17,10 @@ class Settings(BaseSettings):
     DB_TYPE: str = config("DB_TYPE")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = config("ACCESS_TOKEN_EXPIRE_MINUTES")
     JWT_REFRESH_EXPIRY: int = config("JWT_REFRESH_EXPIRY")
-
+    CLOUD_NAME: str = config("CLOUD_NAME")
+    API_KEY:str = config("API_KEY")
+    API_SECRETS: str = config("API_SECRET")
+    CLOUDINARY_URL: str = config("CLOUDINARY_URL")
 
     class Config:
         env_file = ".env"

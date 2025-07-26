@@ -29,7 +29,7 @@ from api.v1.services.user import user_service
 from api.core.config import settings
 
 
-auth = APIRouter(prefix="/auth", tags=["Authentication"])
+router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 limiter = Limiter(key_func=get_remote_address)
 # Setup logging
@@ -37,7 +37,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-@auth.post("/register", status_code=status.HTTP_201_CREATED, response_model=auth_response)
+@router.post("/register", status_code=status.HTTP_201_CREATED, response_model=auth_response)
 @limiter.limit("5/minute")
 def register(
     request: Request,
@@ -75,7 +75,7 @@ def register(
     return response
 
 
-@auth.post("/login", status_code=status.HTTP_200_OK, response_model=auth_response)
+@router.post("/login", status_code=status.HTTP_200_OK, response_model=auth_response)
 @limiter.limit("5/minute")
 def login(request: Request, login_request: LoginRequest, db:Session = Depends(get_db)):
     """Endpoint to log in a user"""
@@ -109,7 +109,7 @@ def login(request: Request, login_request: LoginRequest, db:Session = Depends(ge
 
     return response
 
-@auth.post("/logout", status_code=status.HTTP_200_OK)
+@router.post("/logout", status_code=status.HTTP_200_OK)
 @limiter.limit("5/minute")
 def logout(
     request: Request,
@@ -126,7 +126,7 @@ def logout(
     return response
 
 
-@auth.post("/refresh-access-token", status_code=status.HTTP_200_OK)
+@router.post("/refresh-access-token", status_code=status.HTTP_200_OK)
 @limiter.limit("5/minute")  # Limit to 5 requests per minute per IP
 def refresh_access_token(
     request: Request, response: Response, db: Session = Depends(get_db)
