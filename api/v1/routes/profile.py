@@ -33,7 +33,7 @@ async def upload_image(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
     
 
-@router.patch("update-profile", status_code=status.HTTP_200_OK)
+@router.patch("/update", status_code=status.HTTP_200_OK)
 def update_current_user(
     user_id: str,
     current_user : Annotated[User , Depends(user_service.get_current_user)],
