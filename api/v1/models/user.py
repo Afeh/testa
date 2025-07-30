@@ -1,3 +1,5 @@
+from sqlalchemy.orm import relationship
+
 from sqlalchemy import Column, String, text, Boolean, Index
 from api.v1.models.base import BaseTableModel
 
@@ -15,7 +17,10 @@ class User(BaseTableModel):
     is_admin = Column(Boolean, server_default=text("false"))
     is_verified = Column(Boolean, server_default=text("false"))
     ican_number = Column(String, unique=True, nullable=False)
-    
+
+    exam_sessions = relationship("UserExamSession", back_populates="user", cascade="all, delete-orphan")
+    paper_credits = relationship("UserPaperCredit", back_populates="user", cascade="all, delete-orphan")
+
 
     def to_dict(self):
         obj_dict = super().to_dict()

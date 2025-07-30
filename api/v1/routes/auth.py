@@ -58,7 +58,7 @@ def register(
         access_token=access_token,
         data={
             "user": jsonable_encoder(
-                user, exclude=["password", "updatde_at"]
+                user, exclude=["password", "updated_at"]
             )
         }
     )
@@ -93,7 +93,7 @@ def login(request: Request, login_request: LoginRequest, db:Session = Depends(ge
         access_token=access_token,
         data={
             "user": jsonable_encoder(
-                user, exclude=["password", "updatde_at"]
+                user, exclude=["password", "updated_at"]
             )
         }
     )
@@ -153,6 +153,45 @@ def refresh_access_token(
         httponly=True,
         secure=True,
         samesite="none",
+    )
+
+    return response
+
+
+@router.post("/admin/login", status_code=status.HTTP_200_OK, response_model=auth_response)
+@limiter.limit("5/minute")
+def admin_login(request: Request, login_request: LoginRequest, db:Session = Depends(get_db)):
+    """Endpoint to log in an administrator"""
+
+    user = user_service.authenticate_user(
+        db=db, email=login_request.email, password=login_request.password
+    )
+
+    if not user.is_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="User does not have admin privileges"
+        )
+
+    access_token = user_service.create_access_token(user_id=user.id)
+    refresh_token = user_service.create_refresh_token(user_id=user.id)
+
+    response = auth_response(
+        status_code=200,
+        message="Admin login successful",
+        access_token=access_token,
+        data={
+            "user": jsonable_encoder(user, exclude=["password", "updated_at"])
+        }
+    )
+
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        expires=timedelta(days=30),
+        httponly=True,
+        secure=True,
+        samesite="none"
     )
 
     return response

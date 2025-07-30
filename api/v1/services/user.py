@@ -296,7 +296,8 @@ class UserService(Service):
         """Function to verify a hashed password"""
 
         return pwd_context.verify(secret=password, hash=hash)
-    
+
+
     def get_current_user(
         self,
         access_token: str = Depends(oauth2_scheme),
@@ -305,14 +306,29 @@ class UserService(Service):
         """Function to get current logged in user"""
 
         credentials_exception = HTTPException(
-            status_code=401,
+            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
             headers={"WWW-Authenticate": "Bearer"},
         )
-
         token = self.verify_access_token(access_token, credentials_exception)
+        if not token:
+             raise credentials_exception
         user = db.query(User).filter(User.id == token.id).first()
-
+        if not user:
+            raise credentials_exception
         return user
+
+    def get_current_admin_user(self, current_user: User) -> User:
+        """
+        Verifies if a given user object is an admin.
+        Raises a 403 Forbidden error if the user is not an admin.
+        """
+        if not current_user.is_admin:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="The user does not have adequate permissions"
+            )
+        return current_user
+
 
 user_service = UserService()
