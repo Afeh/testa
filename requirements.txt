@@ -69,4 +69,4 @@ dlib
 face-recognition
 numpy
 requests
-pillow(
+pillow
