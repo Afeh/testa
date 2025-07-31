@@ -30,9 +30,9 @@ app.state.limiter = limiter
 origins = [
     "http://localhost:3000",
     "http://localhost:3001",
-    "http://localhost:5473",
-    "http://localhost:5474",
-    "http://localhost:5475",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
     "https://ican-testa-examhack.vercel.app"
 ]
 
