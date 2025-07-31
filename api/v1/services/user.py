@@ -118,6 +118,13 @@ class UserService(Service):
                 status_code=400,
                 detail="User with this email already exists",
             )
+
+        if db.query(User).filter(User.ican_number == schema.ican_number).first():
+            raise HTTPException(
+                status_code=400,
+                detail="User with this ican_number already exists",
+            )
+
         
         schema.password = self.hash_password(password=schema.password)
 
@@ -154,21 +161,26 @@ class UserService(Service):
     ):
         """Function to update a User"""
 
-        # Get user from access token if provided, otherwise fetch user by id
-        user = (
-            self.fetch(db=db, id=id)
-            if id is not None
-            else self.fetch(db=db, id=current_user.id)
-        )
-
+        target_id = id if id is not None else current_user.id
+        
+        user_to_update = self.fetch(db=db, id=target_id)
+        
+        if not user_to_update:
+            raise HTTPException(status_code=404, detail="User to update not found.")
+        
+        # An admin could update anyone's.
+        if not current_user.is_admin and current_user.id != user_to_update.id:
+            raise HTTPException(status_code=403, detail="Not authorized to update this user.")
+            
         update_data = schema.model_dump(exclude_unset=True)
         for key, value in update_data.items():
             if key == "email":
                 continue
-            setattr(user, key, value)
+            setattr(user_to_update, key, value)
+        
         db.commit()
-        db.refresh(user)
-        return user
+        db.refresh(user_to_update)
+        return user_to_update
 
     def hash_password(self, password: str) -> str:
         """Function to hash a password"""
