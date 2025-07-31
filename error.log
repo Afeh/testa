@@ -1030,3 +1030,339 @@ Traceback (most recent call last):
   File "/usr/lib/python3.12/json/encoder.py", line 180, in default
     raise TypeError(f'Object of type {o.__class__.__name__} '
 TypeError: Object of type bytes is not JSON serializable
+2025-07-31 14:52:10,693 - api.utils.logger - ERROR - Exception occured; (psycopg2.errors.UndefinedTable) relation "papers" does not exist
+LINE 2: FROM papers 
+             ^
+
+[SQL: SELECT papers.title AS papers_title, papers.level AS papers_level, papers.id AS papers_id, papers.created_at AS papers_created_at, papers.updated_at AS papers_updated_at 
+FROM papers 
+WHERE papers.title = %(title_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'title_1': 'Financial Reporting', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: relation "papers" does not exist
+LINE 2: FROM papers 
+             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/api/v1/routes/admin.py", line 29, in create_paper
+    existing_paper = db.query(Paper).filter(Paper.title == paper_data.title).first()
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+           ^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "papers" does not exist
+LINE 2: FROM papers 
+             ^
+
+[SQL: SELECT papers.title AS papers_title, papers.level AS papers_level, papers.id AS papers_id, papers.created_at AS papers_created_at, papers.updated_at AS papers_updated_at 
+FROM papers 
+WHERE papers.title = %(title_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'title_1': 'Financial Reporting', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-07-31 14:58:17,649 - api.utils.logger - ERROR - Exception occured; (psycopg2.errors.UndefinedTable) relation "papers" does not exist
+LINE 2: FROM papers 
+             ^
+
+[SQL: SELECT papers.title AS papers_title, papers.level AS papers_level, papers.id AS papers_id, papers.created_at AS papers_created_at, papers.updated_at AS papers_updated_at 
+FROM papers 
+WHERE papers.title = %(title_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'title_1': 'Financial Reporting', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: relation "papers" does not exist
+LINE 2: FROM papers 
+             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/api/v1/routes/admin.py", line 29, in create_paper
+    existing_paper = db.query(Paper).filter(Paper.title == paper_data.title).first()
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+           ^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "papers" does not exist
+LINE 2: FROM papers 
+             ^
+
+[SQL: SELECT papers.title AS papers_title, papers.level AS papers_level, papers.id AS papers_id, papers.created_at AS papers_created_at, papers.updated_at AS papers_updated_at 
+FROM papers 
+WHERE papers.title = %(title_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'title_1': 'Financial Reporting', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-07-31 15:04:00,845 - api.utils.logger - ERROR - Exception occured; 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'id'), 'msg': 'Input should be a valid string', 'input': UUID('4bf6f603-14d2-4e3c-9ef9-3aee939b810b')}
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 328, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 177, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'id'), 'msg': 'Input should be a valid string', 'input': UUID('4bf6f603-14d2-4e3c-9ef9-3aee939b810b')}
+
+2025-07-31 15:16:52,982 - api.utils.logger - ERROR - Exception occured; 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'exam_id'), 'msg': 'Input should be a valid string', 'input': UUID('192bb8f7-08f6-4897-bd24-258edfc8676c')}
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 328, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 177, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'exam_id'), 'msg': 'Input should be a valid string', 'input': UUID('192bb8f7-08f6-4897-bd24-258edfc8676c')}
+
+2025-07-31 15:21:40,576 - api.utils.logger - ERROR - Exception occured; 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'exam_id'), 'msg': 'Input should be a valid string', 'input': UUID('192bb8f7-08f6-4897-bd24-258edfc8676c')}
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 328, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 177, in serialize_response
+    raise ResponseValidationError(
+fastapi.exceptions.ResponseValidationError: 1 validation errors:
+  {'type': 'string_type', 'loc': ('response', 'exam_id'), 'msg': 'Input should be a valid string', 'input': UUID('192bb8f7-08f6-4897-bd24-258edfc8676c')}
+

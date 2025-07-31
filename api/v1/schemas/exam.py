@@ -2,6 +2,8 @@ from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
 
+from pydantic import UUID4
+
 from api.v1.models.exam import ExamLevel, ExamDiet, QuestionType
 
 class PaperBase(BaseModel):
@@ -14,7 +16,7 @@ class PaperCreate(PaperBase):
 
 
 class PaperResponse(PaperBase):
-    id: str
+    id: UUID4
     created_at: datetime
 
     class Config:
@@ -22,7 +24,7 @@ class PaperResponse(PaperBase):
 
 
 class ExamBase(BaseModel):
-    paper_id: str
+    paper_id: UUID4
     diet: ExamDiet
     year: int = Field(..., gt=2020)
     duration_minutes: int = Field(default=180, gt=0)
@@ -34,7 +36,7 @@ class ExamCreate(ExamBase):
 
 
 class ExamResponse(ExamBase):
-    id: str
+    id: UUID4
     created_at: datetime
     paper: PaperResponse
 
@@ -54,8 +56,8 @@ class QuestionCreate(QuestionBase):
 
 
 class QuestionResponse(QuestionBase):
-    id: str
-    exam_id: str
+    id: UUID4
+    exam_id: UUID4
     created_at: datetime
 
     class Config:

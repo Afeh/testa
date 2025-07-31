@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
+from uuid import UUID
+
 from api.db.database import get_db
 from api.v1.models.user import User
 from api.v1.models.exam import Paper, Exam, Question
@@ -68,7 +70,7 @@ def create_exam(
 
 @router.post("/exams/{exam_id}/questions", status_code=status.HTTP_201_CREATED, response_model=QuestionResponse)
 def add_question_to_exam(
-    exam_id: str,
+    exam_id: UUID,
     question_data: QuestionCreate,
     db: Session = Depends(get_db),
     current_user: User = Depends(user_service.get_current_user)
@@ -76,6 +78,8 @@ def add_question_to_exam(
     user_service.get_current_admin_user(current_user=current_user)
 
     """Admin endpoint to add a question to a specific exam."""
+
+    
     
     # Verify the exam_id exists
     exam = db.query(Exam).filter(Exam.id == exam_id).first()

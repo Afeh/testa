@@ -27,4 +27,5 @@ class Settings(BaseSettings):
         extra = "allow"
 
 
+    print(DB_NAME)
 settings = Settings()
