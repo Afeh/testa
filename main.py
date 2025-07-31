@@ -27,9 +27,18 @@ app = FastAPI(lifespan=lifespan)
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 
+origins = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:5473",
+    "http://localhost:5474",
+    "http://localhost:5475",
+    "https://ican-testa-examhack.vercel.app"
+]
+
 app.add_middleware(
 	CORSMiddleware,
-	allow_origins=["*"],
+	allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
