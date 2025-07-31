@@ -30,7 +30,6 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('title')
     )
-    op.create_index(op.f('ix_users_id'), 'users', ['id'], unique=False)
     op.create_table('exams',
     sa.Column('paper_id', sa.UUID(), nullable=False),
     sa.Column('diet', sa.Enum('MARCH', 'JULY', 'NOVEMBER', name='examdiet'), nullable=False),
