@@ -30,25 +30,6 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('title')
     )
-    op.create_index(op.f('ix_papers_id'), 'papers', ['id'], unique=False)
-    op.create_table('users',
-    sa.Column('email', sa.String(), nullable=False),
-    sa.Column('password', sa.String(), nullable=True),
-    sa.Column('first_name', sa.String(), nullable=True),
-    sa.Column('last_name', sa.String(), nullable=True),
-    sa.Column('avatar_url', sa.String(), nullable=True),
-    sa.Column('phone_number', sa.String(), nullable=True),
-    sa.Column('is_active', sa.Boolean(), server_default=sa.text('true'), nullable=True),
-    sa.Column('is_admin', sa.Boolean(), server_default=sa.text('false'), nullable=True),
-    sa.Column('is_verified', sa.Boolean(), server_default=sa.text('false'), nullable=True),
-    sa.Column('ican_number', sa.String(), nullable=False),
-    sa.Column('id', sa.UUID(), nullable=False),
-    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
-    sa.UniqueConstraint('ican_number')
-    )
     op.create_index(op.f('ix_users_id'), 'users', ['id'], unique=False)
     op.create_table('exams',
     sa.Column('paper_id', sa.UUID(), nullable=False),
@@ -119,8 +100,6 @@ def downgrade() -> None:
     op.drop_table('user_paper_credits')
     op.drop_index(op.f('ix_exams_id'), table_name='exams')
     op.drop_table('exams')
-    op.drop_index(op.f('ix_users_id'), table_name='users')
-    op.drop_table('users')
     op.drop_index(op.f('ix_papers_id'), table_name='papers')
     op.drop_table('papers')
     # ### end Alembic commands ###
