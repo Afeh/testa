@@ -109,8 +109,7 @@ class UserService(Service):
         user = check_model_existence(db, User, id)
 
         # return user if user is not active
-        if not user.is_active:
-            return user
+        return user
 
 
     def create(self, db: Session, schema: user.UserCreate):

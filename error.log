@@ -1366,3 +1366,227 @@ Traceback (most recent call last):
 fastapi.exceptions.ResponseValidationError: 1 validation errors:
   {'type': 'string_type', 'loc': ('response', 'exam_id'), 'msg': 'Input should be a valid string', 'input': UUID('192bb8f7-08f6-4897-bd24-258edfc8676c')}
 
+2025-07-31 23:29:23,013 - api.utils.logger - ERROR - Exception occured; 'NoneType' object has no attribute 'avatar_url'
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/v1/routes/profile.py", line 43, in update_current_user
+    user = user_service.update(db=db, schema=schema, id=user_id, current_user=current_user)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/v1/services/user.py", line 169, in update
+    setattr(user, key, value)
+AttributeError: 'NoneType' object has no attribute 'avatar_url'
+2025-07-31 23:30:04,911 - api.utils.logger - ERROR - Exception occured; (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type uuid: ""6201ca9d-2712-440f-a595-591f60449a6d""
+LINE 3: WHERE users.id = '"6201ca9d-2712-440f-a595-591f60449a6d"'::U...
+                         ^
+
+[SQL: SELECT users.email AS users_email, users.password AS users_password, users.first_name AS users_first_name, users.last_name AS users_last_name, users.avatar_url AS users_avatar_url, users.phone_number AS users_phone_number, users.is_active AS users_is_active, users.is_admin AS users_is_admin, users.is_verified AS users_is_verified, users.ican_number AS users_ican_number, users.id AS users_id, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = %(pk_1)s::UUID]
+[parameters: {'pk_1': '"6201ca9d-2712-440f-a595-591f60449a6d"'}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input syntax for type uuid: ""6201ca9d-2712-440f-a595-591f60449a6d""
+LINE 3: WHERE users.id = '"6201ca9d-2712-440f-a595-591f60449a6d"'::U...
+                         ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/v1/routes/profile.py", line 43, in update_current_user
+    user = user_service.update(db=db, schema=schema, id=user_id, current_user=current_user)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/v1/services/user.py", line 160, in update
+    self.fetch(db=db, id=id)
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/v1/services/user.py", line 109, in fetch
+    user = check_model_existence(db, User, id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/utils/db_validators.py", line 10, in check_model_existence
+    obj = db.get(model, ident=id)
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+    return self._get_impl(
+           ^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+           ^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1415, in execute
+    return meth(
+           ^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type uuid: ""6201ca9d-2712-440f-a595-591f60449a6d""
+LINE 3: WHERE users.id = '"6201ca9d-2712-440f-a595-591f60449a6d"'::U...
+                         ^
+
+[SQL: SELECT users.email AS users_email, users.password AS users_password, users.first_name AS users_first_name, users.last_name AS users_last_name, users.avatar_url AS users_avatar_url, users.phone_number AS users_phone_number, users.is_active AS users_is_active, users.is_admin AS users_is_admin, users.is_verified AS users_is_verified, users.ican_number AS users_ican_number, users.id AS users_id, users.created_at AS users_created_at, users.updated_at AS users_updated_at 
+FROM users 
+WHERE users.id = %(pk_1)s::UUID]
+[parameters: {'pk_1': '"6201ca9d-2712-440f-a595-591f60449a6d"'}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-07-31 23:32:02,144 - api.utils.logger - ERROR - Exception occured; 'NoneType' object has no attribute 'avatar_url'
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/v1/routes/profile.py", line 43, in update_current_user
+    user = user_service.update(db=db, schema=schema, id=user_id, current_user=current_user)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/ICAN-TESTA-EXAMHACK/backend/api/v1/services/user.py", line 169, in update
+    setattr(user, key, value)
+AttributeError: 'NoneType' object has no attribute 'avatar_url'
