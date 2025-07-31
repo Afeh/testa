@@ -62,3 +62,27 @@ class QuestionResponse(QuestionBase):
 
     class Config:
         from_attributes = True
+
+class QuestionForStudent(BaseModel):
+    """A question schema that hides the correct answer."""
+    id: UUID4
+    question_text: str
+    question_type: QuestionType
+    options: Optional[List[str]] = None
+
+    class Config:
+        from_attributes = True
+
+
+class ExamSessionResponse(BaseModel):
+    session_id: UUID4
+    exam_title: str
+    duration_minutes: int
+    questions: List[QuestionForStudent]
+
+class UserAnswer(BaseModel):
+    question_id: UUID4
+    answer: str
+
+class ExamSubmission(BaseModel):
+    answers: List[UserAnswer]
