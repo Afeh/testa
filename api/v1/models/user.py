@@ -17,6 +17,7 @@ class User(BaseTableModel):
     is_admin = Column(Boolean, server_default=text("false"))
     is_verified = Column(Boolean, server_default=text("false"))
     ican_number = Column(String, unique=True, nullable=False)
+    level = Column(String, nullable=False, default="Foundation", server_default="Foundation")
 
     exam_sessions = relationship("UserExamSession", back_populates="user", cascade="all, delete-orphan")
     paper_credits = relationship("UserPaperCredit", back_populates="user", cascade="all, delete-orphan")

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, date
 
 from pydantic import UUID4
 
@@ -17,6 +17,9 @@ class PaperCreate(PaperBase):
 
 class PaperResponse(PaperBase):
     id: UUID4
+    title: str
+    level: str
+
     created_at: datetime
 
     class Config:
@@ -86,3 +89,19 @@ class UserAnswer(BaseModel):
 
 class ExamSubmission(BaseModel):
     answers: List[UserAnswer]
+
+
+class ExamInPaperResponse(BaseModel):
+    id: UUID4
+    diet: ExamDiet
+    year: int
+
+    class Config:
+        from_attributes = True
+
+
+class PaperDetailResponse(PaperResponse): # It inherits from the basic PaperResponse
+    exams: List[ExamInPaperResponse] = []
+
+    class Config:
+        from_attributes = True

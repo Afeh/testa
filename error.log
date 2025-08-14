@@ -1366,3 +1366,72 @@ Traceback (most recent call last):
 fastapi.exceptions.ResponseValidationError: 1 validation errors:
   {'type': 'string_type', 'loc': ('response', 'exam_id'), 'msg': 'Input should be a valid string', 'input': UUID('192bb8f7-08f6-4897-bd24-258edfc8676c')}
 
+2025-08-14 02:42:31,387 - api.utils.logger - ERROR - Exception occured; Strings are not accepted for attribute names in loader options; please use class-bound attributes directly.
+Traceback (most recent call last):
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/fastapi/routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/starlette/concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/api/v1/routes/papers.py", line 27, in get_paper_by_id
+    paper = paper_service.fetch_one(db=db, paper_id=paper_id)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/api/v1/services/paper.py", line 20, in fetch_one
+    .selectinload('user')
+     ^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/strategy_options.py", line 410, in selectinload
+    return self._set_relationship_strategy(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _set_relationship_strategy
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/sql/base.py", line 280, in _generative
+    x = fn(self, *args, **kw)
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/strategy_options.py", line 806, in _set_relationship_strategy
+    self._clone_for_bind_strategy(
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/strategy_options.py", line 1286, in _clone_for_bind_strategy
+    load_element = _TokenStrategyLoad.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/strategy_options.py", line 1763, in create
+    path = opt._init_path(
+           ^^^^^^^^^^^^^^^
+  File "/home/afebu/Documents/ProgrammingStuff/testa/.venv/lib/python3.12/site-packages/sqlalchemy/orm/strategy_options.py", line 2165, in _init_path
+    raise sa_exc.ArgumentError(
+sqlalchemy.exc.ArgumentError: Strings are not accepted for attribute names in loader options; please use class-bound attributes directly.
