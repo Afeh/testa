@@ -14,6 +14,8 @@ from api.v1.schemas.exam import (
 
 from api.v1.services.user import user_service
 
+from typing import List
+
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
 
@@ -68,30 +70,64 @@ def create_exam(
     return new_exam
 
 
-@router.post("/exams/{exam_id}/questions", status_code=status.HTTP_201_CREATED, response_model=QuestionResponse)
-def add_question_to_exam(
+# @router.post("/exams/{exam_id}/questions", status_code=status.HTTP_201_CREATED, response_model=QuestionResponse)
+# def add_question_to_exam(
+#     exam_id: UUID,
+#     question_data: QuestionCreate,
+#     db: Session = Depends(get_db),
+#     current_user: User = Depends(user_service.get_current_user)
+# ):
+#     user_service.get_current_admin_user(current_user=current_user)
+
+#     """Admin endpoint to add a question to a specific exam."""
+
+    
+    
+#     # Verify the exam_id exists
+#     exam = db.query(Exam).filter(Exam.id == exam_id).first()
+#     if not exam:
+#         raise HTTPException(
+#             status_code=status.HTTP_404_NOT_FOUND,
+#             detail=f"Exam with id {exam_id} not found."
+#         )
+    
+#     # Create the question and associate it with the exam
+#     new_question = Question(**question_data.model_dump(), exam_id=exam_id)
+#     db.add(new_question)
+#     db.commit()
+#     db.refresh(new_question)
+#     return new_question
+
+
+@router.post("/exams/{exam_id}/questions", status_code=status.HTTP_201_CREATED, response_model=List[QuestionResponse])
+def add_questions_to_exam(
     exam_id: UUID,
-    question_data: QuestionCreate,
+    # 1. The request body is now a list of questions
+    questions_data: List[QuestionCreate],
     db: Session = Depends(get_db),
     current_user: User = Depends(user_service.get_current_user)
 ):
+    """
+    Admin endpoint to add a batch of questions to a specific exam.
+    """
     user_service.get_current_admin_user(current_user=current_user)
 
-    """Admin endpoint to add a question to a specific exam."""
-
-    
-    
-    # Verify the exam_id exists
+    # Verify the exam_id exists (this only needs to be done once)
     exam = db.query(Exam).filter(Exam.id == exam_id).first()
     if not exam:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Exam with id {exam_id} not found."
         )
-    
-    # Create the question and associate it with the exam
-    new_question = Question(**question_data.model_dump(), exam_id=exam_id)
-    db.add(new_question)
+
+    # 2. Loop through the incoming data and prepare a list of Question objects
+    new_questions = []
+    for question_data in questions_data:
+        new_question = Question(**question_data.model_dump(), exam_id=exam_id)
+        new_questions.append(new_question)
+
+    db.add_all(new_questions)
     db.commit()
-    db.refresh(new_question)
-    return new_question
+
+
+    return new_questions
