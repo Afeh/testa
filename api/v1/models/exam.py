@@ -18,7 +18,7 @@ class QuestionType(str, enum.Enum):
 
 class ExamDiet(str, enum.Enum):
     MARCH = "March"
-    JULY = "JULY"
+    JULY = "July"
     NOVEMBER = "November"
 
 
